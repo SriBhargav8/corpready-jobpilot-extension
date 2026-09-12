@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JobPilot — Test Job Application Form</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #0f1715; color: #e1ede8; padding: 40px; max-width: 650px; margin: 0 auto; }
+    h1 { font-size: 24px; color: #1ec786; margin-bottom: 8px; }
+    p { font-size: 14px; color: #8fa69c; margin-bottom: 24px; }
+    .form-group { margin-bottom: 18px; }
+    label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; }
+    input[type="text"], input[type="email"], input[type="tel"], textarea, select {
+      width: 100%; padding: 10px 14px; border-radius: 8px; background: #182622;
+      border: 1px solid #2d453e; color: #fff; font-size: 14px; box-sizing: border-box;
+    }
+    textarea { height: 100px; }
+    .btn { background: #1ec786; color: #07261a; border: none; font-weight: 700; padding: 12px 24px; border-radius: 8px; cursor: pointer; }
+    .banner { background: rgba(30, 199, 134, 0.12); border: 1px solid rgba(30, 199, 134, 0.3); padding: 12px 16px; border-radius: 8px; font-size: 13px; margin-bottom: 24px; color: #38e89f; }
+  </style>
+</head>
+<body>
+  <h1>JobPilot Test Application Form</h1>
+  <div class="banner">
+    💡 <strong>How to test:</strong> Click the <strong>CorpReady JobPilot</strong> extension icon in your Chrome toolbar and press <strong>"Fill this application"</strong>. All fields will auto-fill and outline in green!
+  </div>
+
+  <form id="appForm">
+    <div class="form-group">
+      <label for="first_name">First Name *</label>
+      <input type="text" id="first_name" name="first_name">
+    </div>
+
+    <div class="form-group">
+      <label for="last_name">Last Name *</label>
+      <input type="text" id="last_name" name="last_name">
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address *</label>
+      <input type="email" id="email" name="email">
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number *</label>
+      <input type="tel" id="phone" name="phone">
+    </div>
+
+    <div class="form-group">
+      <label for="linkedin">LinkedIn Profile URL</label>
+      <input type="text" id="linkedin" name="linkedin">
+    </div>
+
+    <div class="form-group">
+      <label for="salary">Expected CTC / Salary</label>
+      <input type="text" id="salary" name="salary">
+    </div>
+
+    <div class="form-group">
+      <label for="notice">Notice Period</label>
+      <input type="text" id="notice" name="notice">
+    </div>
+
+    <div class="form-group">
+      <label for="work_auth">Are you legally authorized to work?</label>
+      <select id="work_auth" name="work_auth">
+        <option value="">Please select...</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="cover_letter">Cover Letter</label>
+      <textarea id="cover_letter" name="cover_letter" placeholder="Why do you want to join?"></textarea>
+    </div>
+
+    <button type="button" class="btn" onclick="alert('You pressed the final submit button!')">Submit Application</button>
+  </form>
+</body>
+</html>
