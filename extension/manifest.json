@@ -1,0 +1,29 @@
+{
+  "manifest_version": 3,
+  "name": "CorpReady JobPilot",
+  "version": "0.1.0",
+  "description": "Fills your job application in one click — you review and press submit.",
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": [
+    "https://boards.greenhouse.io/*",
+    "https://job-boards.greenhouse.io/*",
+    "https://jobs.lever.co/*",
+    "https://jobs.ashbyhq.com/*",
+    "https://www.linkedin.com/jobs/*",
+    "https://*.myworkdayjobs.com/*"
+  ],
+  "background": { "service_worker": "background.js" },
+  "content_scripts": [{
+    "matches": [
+      "https://boards.greenhouse.io/*",
+      "https://job-boards.greenhouse.io/*",
+      "https://jobs.lever.co/*",
+      "https://jobs.ashbyhq.com/*",
+      "https://www.linkedin.com/jobs/*",
+      "https://*.myworkdayjobs.com/*"
+    ],
+    "js": ["field-engine.js", "filler.js"],
+    "run_at": "document_idle"
+  }],
+  "action": { "default_popup": "popup.html", "default_title": "JobPilot" }
+}

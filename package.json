@@ -1,0 +1,17 @@
+{
+  "name": "jobpilot-v0-codebase",
+  "version": "1.0.0",
+  "description": "Global AI career agent: matches roles from 50K+ company career pages, tailors resume + cover letter + screening answers per role, fills the application in one click. **The user always presses the final Submit.**",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.116.0",
+    "pg": "^8.23.0"
+  }
+}

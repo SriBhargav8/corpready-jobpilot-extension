@@ -1,0 +1,26 @@
+name: ATS Job Poller
+on:
+  schedule:
+    # Runs every 6 hours automatically
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  poll-jobs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run ATS Poller
+        run: node workers/ats-pollers.js
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
