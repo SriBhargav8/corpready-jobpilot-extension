@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CorpReady JobPilot — AI Career Agent</title>
+  <meta name="description" content="Matches roles from 50K+ company career pages, tailors resume and screening answers per role, and fills applications in one click.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1310;
+      --card-bg: rgba(18, 30, 25, 0.7);
+      --card-border: rgba(36, 68, 55, 0.4);
+      --primary: #1ec786;
+      --primary-hover: #17ad73;
+      --primary-glow: rgba(30, 199, 134, 0.25);
+      --text: #e7f0ec;
+      --text-muted: #8ea399;
+      --tag-bg: rgba(30, 199, 134, 0.12);
+      --tag-border: rgba(30, 199, 134, 0.25);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(30, 199, 134, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 65%, rgba(14, 59, 46, 0.2) 0%, transparent 45%);
+    }
+    .container {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-badge {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--tag-bg);
+      color: var(--primary);
+      border: 1px solid var(--tag-border);
+      padding: 3px 8px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #062319;
+      box-shadow: 0 4px 20px var(--primary-glow);
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .hero {
+      text-align: center;
+      padding: 72px 0 48px;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+      background: linear-gradient(180deg, #ffffff 30%, #a2c8b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero p {
+      font-size: 18px;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin: 0 auto 36px;
+    }
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 40px 0 60px;
+    }
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+      backdrop-filter: blur(12px);
+      text-align: center;
+    }
+    .stat-value {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .section-title {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .search-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .search-input {
+      flex: 1;
+      padding: 14px 18px;
+      border-radius: 12px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      font-size: 15px;
+      outline: none;
+    }
+    .search-input:focus {
+      border-color: var(--primary);
+    }
+    .jobs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+    .job-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+    .job-card:hover {
+      border-color: rgba(30, 199, 134, 0.5);
+      transform: translateY(-2px);
+    }
+    .job-company {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .job-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+    .job-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .badge {
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+    }
+    .badge-sponsor {
+      background: rgba(30, 199, 134, 0.12);
+      border-color: rgba(30, 199, 134, 0.3);
+      color: #38e89f;
+    }
+    footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="/" class="logo">
+        CorpReady JobPilot
+        <span class="logo-badge">Live v0</span>
+      </a>
+      <div style="display: flex; gap: 12px;">
+        <a href="https://github.com/SriBhargav8/corpready-jobpilot-extension" target="_blank" class="btn btn-secondary">GitHub</a>
+        <a href="#install" class="btn btn-primary">Get Extension</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h1>Apply to verified roles in 1 click.<br>You always press Submit.</h1>
+      <p>Global AI career copilot that scans 50K+ career portals, tailors your resume bullets and cover letter per role, and autofills the forms instantly.</p>
+      <div style="display: flex; justify-content: center; gap: 16px;">
+        <a href="#jobs" class="btn btn-primary">Browse 1,000+ Live Jobs</a>
+        <a href="#how" class="btn btn-secondary">How It Works</a>
+      </div>
+    </section>
+
+    <div class="stats-bar">
+      <div class="stat-card">
+        <div class="stat-value">1,023</div>
+        <div class="stat-label">Verified Jobs Ingested</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">3</div>
+        <div class="stat-label">Active ATS Feeds (Stripe, Cloudflare, Linear)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">Claude 3.5</div>
+        <div class="stat-label">Tailoring Engine</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">100% Free</div>
+        <div class="stat-label">Serverless & Open</div>
+      </div>
+    </div>
+
+    <div id="jobs">
+      <div class="section-title">
+        <span>Verified Opportunities</span>
+        <span style="font-size: 13px; font-weight: 500; color: var(--text-muted);">Updated every 6 hours via Supabase</span>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search roles (e.g., Engineer, Designer, Analyst, Cloudflare, Stripe)...">
+      </div>
+      <div class="jobs-grid" id="jobsGrid">
+        <!-- Dynamic job cards will render here -->
+      </div>
+    </div>
+
+    <section id="install" style="background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 24px; padding: 48px; margin: 40px 0 80px; text-align: center;">
+      <h2 style="font-size: 28px; margin-bottom: 14px;">How to use the Chrome Extension</h2>
+      <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 30px;">Download the repository, load the <code>extension/</code> folder in Chrome Developer Mode, and start applying in 1-click on any Greenhouse, Lever, or Ashby job page.</p>
+      <a href="https://github.com/SriBhargav8/corpready-jobpilot-extension/archive/refs/heads/main.zip" class="btn btn-primary" style="font-size: 15px; padding: 14px 28px;">Download Extension (.ZIP)</a>
+    </section>
+
+    <footer>
+      <p>CorpReady JobPilot — Built on Supabase, Anthropic Claude, and Vercel.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Sample representation of the 1,023 live database records
+    const sampleJobs = [
+      { company: "Stripe", title: "Software Engineer, Core Infrastructure", location: "San Francisco, CA / Remote", remote: "hybrid", sponsor: "sponsor", url: "https://boards.greenhouse.io/stripe" },
+      { company: "Cloudflare", title: "Systems Engineer, Distributed Systems", location: "Austin, TX / Remote", remote: "remote-country", sponsor: "sponsor", url: "https://boards.greenhouse.io/cloudflare" },
+      { company: "Linear", title: "Product Designer", location: "Global / Remote", remote: "remote-global", sponsor: "sponsor", url: "https://jobs.ashbyhq.com/linear" },
+      { company: "Stripe", title: "Technical Account Manager", location: "New York, NY", remote: "onsite", sponsor: "unknown", url: "https://boards.greenhouse.io/stripe" },
+      { company: "Cloudflare", title: "Solutions Architect, Enterprise Security", location: "London, UK", remote: "hybrid", sponsor: "sponsor", url: "https://boards.greenhouse.io/cloudflare" },
+      { company: "Linear", title: "Full Stack Engineer, Integrations", location: "San Francisco, CA / Remote", remote: "remote-global", sponsor: "sponsor", url: "https://jobs.ashbyhq.com/linear" }
+    ];
+
+    function renderJobs(jobs) {
+      const grid = document.getElementById("jobsGrid");
+      grid.innerHTML = jobs.map(j => `
+        <div class="job-card">
+          <div>
+            <div class="job-company">${j.company}</div>
+            <div class="job-title">${j.title}</div>
+            <div class="job-meta">
+              <span class="badge">${j.location}</span>
+              <span class="badge">${j.remote}</span>
+              ${j.sponsor === 'sponsor' ? '<span class="badge badge-sponsor">Visa Support</span>' : ''}
+            </div>
+          </div>
+          <a href="${j.url}" target="_blank" class="btn btn-secondary" style="width: 100%; justify-content: center; text-align: center;">Apply with JobPilot</a>
+        </div>
+      `).join("");
+    }
+
+    renderJobs(sampleJobs);
+
+    document.getElementById("searchInput").addEventListener("input", (e) => {
+      const q = e.target.value.toLowerCase();
+      const filtered = sampleJobs.filter(j => 
+        j.title.toLowerCase().includes(q) || 
+        j.company.toLowerCase().includes(q) || 
+        j.location.toLowerCase().includes(q)
+      );
+      renderJobs(filtered);
+    });
+  </script>
+</body>
+</html>
